@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+0<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
@@ -34,11 +34,11 @@
 									<tbody>
 									
 										<tr th:each="c : ${listacompras}">
-										
-											<td th:text="${c.id}"></td>
+						
+											<td th:text="${c.codigo}"></td>
 											<td th:text="${c.producto.nombre}"></td>
 											<td th:text="${c.cantidad}"></td>
-											<td th:text="${c.getTotal}"></td>
+											<td th:text="${c.total}"></td>
 											
 										</tr>
 									</tbody>	
