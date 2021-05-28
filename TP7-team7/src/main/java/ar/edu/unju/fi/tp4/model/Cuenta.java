@@ -22,7 +22,7 @@ public class Cuenta {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="cta_saldo")
 	private double saldo;
