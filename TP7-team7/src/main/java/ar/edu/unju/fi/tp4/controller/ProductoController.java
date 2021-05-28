@@ -1,51 +1,71 @@
 package ar.edu.unju.fi.tp4.controller;
 
 
+import java.util.Optional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import ar.edu.unju.fi.tp4.model.Producto;
 import ar.edu.unju.fi.tp4.service.IProductoService;
 
+
 @Controller
 public class ProductoController {
+	
+	//private static final Log LOGGER = LogFactory.getLog(ProductoController.class);
+
 	@Autowired
-	IProductoService productosService ;
-	private static final Log LOGGER = LogFactory.getLog(ProductoController.class);
+	@Qualifier("productoMysql")
+	private IProductoService productoService ;
+	
+	@Autowired
+	private Producto producto;
+
 	
 	@GetMapping("/producto/nuevo")
-	public String getNuevoPage(Model model) {
-		LOGGER.info("CONTROLLER: ProductoController with /nuevo get method");
-		LOGGER.info("METHOD: getNuevoPage()");
-		LOGGER.info("RESULT: visualiza la página nuevo.html");
-		model.addAttribute("producto", productosService.getProducto());
+	public String getProductoPage(Model model) {
+		model.addAttribute(producto);
 		return "nuevoProducto";
 	}
 	
-
 	@PostMapping("/producto/guardar")
-	public String getResultPage(@ModelAttribute("producto") Producto unProducto) {
-		productosService.addProducto(unProducto);	
+	public String guardarProducto(@ModelAttribute("producto") Producto producto) {
+		productoService.addProducto(producto);
 		return "resultado";
-	}
-	@GetMapping("/producto/ultimo")
-	public ModelAndView getUltimoProductoPage(Model model) {
-		ModelAndView modelView = new ModelAndView("ultimoproducto");
 		
-		modelView.addObject("producto", productosService.getUltimoProducto());
+	}
+	
+	@GetMapping("/producto/listado")
+	public ModelAndView getListadoPage() {
+		ModelAndView model = new ModelAndView("lista-producto");
+		if(productoService.getAllProductos() == null)
+			productoService.generarTablaProductos();
+		model.addObject("producto", productoService.getAllProductos());
+		return model;
+	}
+	
+
+	@GetMapping("/producto/editar/{id}")
+	public ModelAndView getProductoEditPage(@PathVariable(value = "id") Long id) {
+		ModelAndView modelView = new ModelAndView("nuevoProducto");
+		Optional<Producto> producto = productoService.getProductoForId(id);
+		modelView.addObject("producto",producto);
 		return modelView;
 	}
-	@GetMapping("/producto/listar")
-	public String getEmpleadosPage(Model model) {
-		model.addAttribute("producto", productosService.getAllProductos());
-		return "lista-producto";
+	
+	@GetMapping("/producto/eliminar/{id}")
+	public ModelAndView getProductoEliminar(@PathVariable(value = "id") Long id){
+		ModelAndView modelView = new ModelAndView("redirect:/producto/listado");
+		productoService.eliminarProducto(id);
+		return modelView;
 	}
 	
 	
