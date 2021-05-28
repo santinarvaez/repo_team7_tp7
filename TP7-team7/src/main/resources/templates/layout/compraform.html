@@ -24,25 +24,25 @@
 						</div>
 						
 						<form th:action="@{/compra/guardar}" th:object="${compra}" method="post">
-						
+								
 							<div class="form-row">
-					    <div class="col-md-6 mb-3">
-					      <label for="codigo">Codigo de Compra</label>
-					      <input type="number" class="form-control" id="id" th:field="*{id}" required>
-					    </div>
-					    
-					    <div class="col-md-6 mb-3">
-					      <label for="producto">Seleccionar Producto</label>
-					      <select th:field="*{producto.codigo}" id="producto" class="form-control">
-							  <option th:each="prod : ${productos}" th:value="${prod.codigo}" th:text="${prod.nombre}"></option>
-							</select>
-					    </div>
-					    
-					    <div class="col-md-6 mb-3">
-					      <label for="cantidad">Cantidad</label>
-					      <input type="number" class="form-control" id="cantidad" th:field="*{cantidad}" required>
-					    </div>
-			
+							    <div class="col-md-6 mb-3">
+							      <label for="codigo">Id de la Compra</label>
+							      <input type="number" class="form-control" id="id" th:field="*{codigo}" required>
+							    </div>
+							    
+							    <div class="col-md-6 mb-3">
+							      <label for="producto">Seleccionar Producto</label>
+							      <select th:field="*{producto.codigo}" id="producto" class="form-control">
+									  <option th:each="prod : ${productos}" th:value="${prod.codigo}" th:text="${prod.nombre}"></option>
+									</select>
+							    </div>
+							    
+							    <div class="col-md-6 mb-3">
+							      <label for="cantidad">Cantidad</label>
+							      <input type="number" class="form-control" id="cantidad" th:field="*{cantidad}" required>
+							    </div>
+							</div>
 	
 						<button type="submit" class="btn text-white btn-primaty bt-sm">Enviar</button>
 						
