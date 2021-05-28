@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 
@@ -28,6 +29,7 @@ public class Cuenta {
 	private double saldo;
 	
 	@Column(name="cta_fecha_creacion")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaCreacion;
 	
 	@Column(name="cta_estado")
@@ -58,7 +60,11 @@ public class Cuenta {
 		this.estado = estado;
 	}
 
+	
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public long getId() {
 		return id;

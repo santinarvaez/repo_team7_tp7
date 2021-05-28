@@ -10,6 +10,8 @@ import java.time.Period;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -23,11 +25,15 @@ import org.springframework.stereotype.Component;
 @Table(name="CLIENTES")
 @Component("clienteObj")
 public class Cliente {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cte_id")
+	private Long id;
+	
 	@Column(name="cte_tipo_doc")
 	private String tipoDocumento;
 	
-	@Id
 	@Column(name="cte_num_doc")
 	private int numeroDocumento;
 	
@@ -62,9 +68,13 @@ public class Cliente {
 	@JoinColumn(name = "cta_id" )
 	private Cuenta cuenta;
 	
-	
-	
-	
+
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public Cuenta getCuenta() {
 		return cuenta;
 	}
@@ -216,4 +226,3 @@ public class Cliente {
 	}
 	
 }
-
