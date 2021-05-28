@@ -1,5 +1,8 @@
 package ar.edu.unju.fi.tp4.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +23,8 @@ public class Compra {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
 	@Column(name = "comp_codigo")
 	private Long codigo;
 	
@@ -28,9 +34,12 @@ public class Compra {
 	@Column(name = "comp_total")
 	private double total;
 	
+	@OneToMany(mappedBy = "compra")
+	private List<Producto> productos = new ArrayList<Producto>();
+	
 	@Autowired
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "prod_codigo")
+	@JoinColumn(name = "prod_id")
 	private Producto producto;
 	
 	public Compra() {
