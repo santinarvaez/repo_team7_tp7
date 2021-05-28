@@ -7,27 +7,73 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
-
+@Entity
+@Table(name="CLIENTES")
 @Component("clienteObj")
 public class Cliente {
 
+	@Column(name="cte_tipo_doc")
 	private String tipoDocumento;
+	
+	@Id
+	@Column(name="cte_num_doc")
 	private int numeroDocumento;
+	
+	@Column(name="cte_nya")
 	private String nombreApellido;
+	
+	@Column(name="cte_email")
 	private String email;
+	
+	@Column(name="cte_password")
 	private String password;
+	
+	@Column(name="cte_fecha_nac")
 	@DateTimeFormat(pattern = "yyyy-MM--dd")
 	private LocalDate fechaNacimiento;
+	
+	@Column(name="cte_edad")
 	private int edad;
+	
+	@Column(name="cte_cod_area")
 	private int codigoAreaTelefono;
+	
+	@Column(name="cte_num_telefono")
 	private int numeroTelefono;
+	
+	@Column(name="cte_fecha_ult_compra")
 	@DateTimeFormat(pattern = "yyyy-MM--dd")
 	private LocalDate fechaUltimaCompra;
 	
+	@Autowired
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cta_id" )
+	private Cuenta cuenta;
 	
+	
+	
+	
+	public Cuenta getCuenta() {
+		return cuenta;
+	}
+	public void setCuenta(Cuenta cuenta) {
+		this.cuenta = cuenta;
+	}
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
 	public int getNumeroTelefono() {
 		return numeroTelefono;
 	}
@@ -170,3 +216,4 @@ public class Cliente {
 	}
 	
 }
+
