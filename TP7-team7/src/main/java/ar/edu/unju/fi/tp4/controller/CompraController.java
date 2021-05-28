@@ -1,5 +1,7 @@
 package ar.edu.unju.fi.tp4.controller;
 
+import java.util.Optional;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,44 +28,54 @@ public class CompraController {
 	private Compra compra;
 	
 	@Autowired
-	private IProductoService productoService;
-	
-	@Autowired
-	@Qualifier("CompraImp")
+	@Qualifier("compraMysql")
 	private ICompraService compraService;
 	
+	@Autowired
+	@Qualifier("productoMysql")
+	private IProductoService productoService;
 	
 	@GetMapping("/compra/nueva")
-	public String getCompraPage(Model model){
-		model.addAttribute("compra",compra);
-		model.addAttribute("productos",productoService.getAllProductos());
+	public String getCompraNuevaPage(Model model) {
+		model.addAttribute("compra", compra);
+		model.addAttribute("productos", productoService.getAllProductos());
 		return "compraform";
 	}
 	
-	
 	@PostMapping("/compra/guardar")
-	public ModelAndView guardarCompra(@ModelAttribute("compra")Compra compra) {
-		ModelAndView modelView = new ModelAndView("lista-compras");
-		Producto producto = productoService.getProductoForId(compra.getProducto().getCodigo());
-		LOGGER.info("producto---> "+ productoService.getProductoForId(compra.getProducto().getCodigo()).getNombre());
+	public ModelAndView getGuardarCompraPage(@ModelAttribute("compra")Compra compra) {
+		ModelAndView model = new ModelAndView("lista-compras");
+		Producto producto = productoService.getProductoForCodigo(compra.getProducto().getCodigo());
 		compra.setProducto(producto);
-		LOGGER.info("---->PRODUCTO CARGADO: "+producto.getNombre());
-		//LOGGER.info("---->NOMBRE "+compra.getCantidad());
-		compraService.guardarCompras(compra);
-		modelView.addObject("listacompras",compraService.obtenerCompras());
-		return modelView;
+		compra.setTotal(compra.getCantidad()*producto.getPrecio());
+		compraService.guardarCompra(compra);
+		model.addObject("listacompras", compraService.getCompras());
+		return model;
 	}
 	
-	
 	@GetMapping("/compra/listado")
-	public ModelAndView getCompraListadoPage() {
-		
-		ModelAndView modelView = new ModelAndView("lista-compras");
-		if(compraService.obtenerCompras()==null) {
-			compraService.generarTablaCompras();
-		}
-		modelView.addObject("listacompras",compraService.obtenerCompras());
-		return modelView;
+	public ModelAndView getListadoCompraPage() {
+		ModelAndView model = new ModelAndView("lista-compras");
+		model.addObject("listacompras", compraService.getCompras());
+		return model;
+	}
+	
+
+	
+	@GetMapping("/compra/editar/{id}")
+	public ModelAndView modificarCompraPage(@PathVariable (value = "id")Long id) {
+		ModelAndView model = new ModelAndView("compraform");
+		Optional<Compra> compra = compraService.getCompraPorId(id);
+		model.addObject("compra", compra);
+		model.addObject("productos", productoService.getAllProductos());
+		return model;
+	}
+	
+	@GetMapping("/compra/eliminar/{id}")
+	public ModelAndView eliminarCompraPage(@PathVariable(value = "id")Long id) {
+		ModelAndView model = new ModelAndView("redirect:/compra/listado");
+		compraService.eliminarCompra(id);
+		return model;
 	}
 	
 }
