@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.edu.unju.fi.tp4.model.Producto;
 import ar.edu.unju.fi.tp4.repository.IProductoRepository;
-
-import ar.edu.unju.fi.tp4.Repository.IProductoRepository;
-import ar.edu.unju.fi.tp4.model.Producto;
 import ar.edu.unju.fi.tp4.service.IProductoService;
 
 @Service("productoMysql")

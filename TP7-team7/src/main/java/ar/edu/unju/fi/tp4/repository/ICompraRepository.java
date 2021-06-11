@@ -6,4 +6,5 @@ import ar.edu.unju.fi.tp4.model.Compra;
 
 public interface ICompraRepository extends CrudRepository<Compra,Long> {
 
+	
 }
