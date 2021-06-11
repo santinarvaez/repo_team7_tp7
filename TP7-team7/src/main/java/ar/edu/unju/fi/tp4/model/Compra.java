@@ -46,13 +46,17 @@ public class Compra {
 		super();
 	}
 
-	public Compra(Long codigo, Producto producto, int cantidad, double total) {
+
+	public Compra(Long id, Long codigo, int cantidad, double total, List<Producto> productos, Producto producto) {
 		super();
+		this.id = id;
 		this.codigo = codigo;
-		this.producto = producto;
 		this.cantidad = cantidad;
 		this.total = total;
+		this.productos = productos;
+		this.producto = producto;
 	}
+
 
 	public Long getCodigo() {
 		return codigo;
@@ -87,6 +91,23 @@ public class Compra {
 		this.total = total;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+	
+	
 
 	
 }
