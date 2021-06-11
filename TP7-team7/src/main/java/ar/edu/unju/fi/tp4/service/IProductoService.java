@@ -3,7 +3,6 @@ package ar.edu.unju.fi.tp4.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import ar.edu.unju.fi.tp4.model.Producto;
 
 public interface IProductoService {
@@ -16,4 +15,5 @@ public interface IProductoService {
 	public Producto getProductoForCodigo(int codigo);
 	public Optional<Producto> getProductoForId(Long id);
 	public void eliminarProducto(Long id);
+
 }

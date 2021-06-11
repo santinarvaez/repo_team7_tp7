@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ar.edu.unju.fi.tp4.model.Producto;
+import ar.edu.unju.fi.tp4.repository.IProductoRepository;
 
 import ar.edu.unju.fi.tp4.Repository.IProductoRepository;
 import ar.edu.unju.fi.tp4.model.Producto;
-
 import ar.edu.unju.fi.tp4.service.IProductoService;
 
 @Service("productoMysql")
@@ -16,7 +17,6 @@ public class ProductoServiceMySqlImp implements IProductoService{
 	@Autowired
 	private IProductoRepository productoRepository;
 
-	
 	
 	@Override
 	public void addProducto(Producto producto) {
@@ -72,7 +72,4 @@ public class ProductoServiceMySqlImp implements IProductoService{
 
 	
 }
-	
-
-	
 
