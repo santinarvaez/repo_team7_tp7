@@ -6,4 +6,5 @@ import ar.edu.unju.fi.tp4.model.Producto;
 
 public interface IProductoRepository extends CrudRepository<Producto,Long> {
 	public Producto findByCodigo(int codigo);
+	
 }
