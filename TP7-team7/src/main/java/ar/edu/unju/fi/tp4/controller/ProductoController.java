@@ -37,7 +37,7 @@ public class ProductoController {
 	@PostMapping("/producto/guardar")
 	public String guardarProducto(@ModelAttribute("producto") Producto producto) {
 		productoService.addProducto(producto);
-		return "resultado";
+		return "lista-producto";
 		
 	}
 	

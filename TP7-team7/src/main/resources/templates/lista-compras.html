@@ -26,6 +26,7 @@
 								<thead>
 									<tr>
 										<th>ID de la compra</th>
+										<th>Codigo de la compra</th>
 										<th>Nombre del producto</th>
 										<th>Cantidad</th>
 										<th>Total</th>
@@ -34,12 +35,17 @@
 									<tbody>
 									
 										<tr th:each="c : ${listacompras}">
-						
+											<td th:text="${c.id}"></td>
 											<td th:text="${c.codigo}"></td>
 											<td th:text="${c.producto.nombre}"></td>
 											<td th:text="${c.cantidad}"></td>
 											<td th:text="${c.total}"></td>
 											
+											<td> 
+											<a th:href="@{/compra/editar/}+${c.id}">Editar</a>
+											<a th:href="@{/compra/eliminar/}+${c.id}">Eliminar</a>
+											</td>
+										
 										</tr>
 									</tbody>	
 							</table>	
