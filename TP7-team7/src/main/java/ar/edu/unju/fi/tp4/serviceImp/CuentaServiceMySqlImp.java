@@ -3,12 +3,18 @@ package ar.edu.unju.fi.tp4.serviceImp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ar.edu.unju.fi.tp4.model.Cuenta;
 import ar.edu.unju.fi.tp4.repository.ICuentaRepository;
+
+import ar.edu.unju.fi.tp4.Repository.ICuentaRepository;
+import ar.edu.unju.fi.tp4.model.Cuenta;
+
 import ar.edu.unju.fi.tp4.service.ICuentaService;
 
 @Service("cuentaMysql")
 public class CuentaServiceMySqlImp implements ICuentaService {
+
 
 		@Autowired
 		private Cuenta cuenta;
@@ -33,4 +39,3 @@ public class CuentaServiceMySqlImp implements ICuentaService {
 		}
 
 	
-}

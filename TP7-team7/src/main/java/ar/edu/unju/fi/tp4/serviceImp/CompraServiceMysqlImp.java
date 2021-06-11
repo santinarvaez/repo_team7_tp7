@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 import ar.edu.unju.fi.tp4.model.Compra;
 import ar.edu.unju.fi.tp4.service.ICompraService;
 import ar.edu.unju.fi.tp4.repository.ICompraRepository;
+import ar.edu.unju.fi.tp4.Repository.ICompraRepository;
+import ar.edu.unju.fi.tp4.model.Compra;
+import ar.edu.unju.fi.tp4.service.ICompraService;
+
+
 
 @Service("compraMysql")
 public class CompraServiceMysqlImp implements ICompraService {
@@ -52,5 +57,4 @@ public class CompraServiceMysqlImp implements ICompraService {
 	}
 
 }
-	
 

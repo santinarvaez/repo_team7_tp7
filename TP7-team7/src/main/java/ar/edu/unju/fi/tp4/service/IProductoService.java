@@ -15,6 +15,5 @@ public interface IProductoService {
 	public Producto getProductoForCodigo(int codigo);
 	public Optional<Producto> getProductoForId(Long id);
 	public void eliminarProducto(Long id);
-	
 
 }
